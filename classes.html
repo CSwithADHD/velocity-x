@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VelocityX | Classes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link:hover {
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgb(37, 208, 58), rgb(30, 176, 49));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(37, 208, 58, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(37, 208, 58, 0.5);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 60px; /* Offset for fixed navbar */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(37, 208, 58, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(30, 176, 49, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Schedule Container */
+        .schedule-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            overflow-x: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            min-width: 130px;
+        }
+
+        tr:hover td {
+            background: rgba(37, 208, 58, 0.1);
+            color: white;
+        }
+
+        /* Class Tags */
+        .class-box {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .class-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(37, 208, 58, 0.3);
+        }
+
+        .strength { background: #6a1b9a; }
+        .impact { background: #d81b60; }
+        .cycle { background: #0288d1; }
+        .yoga { background: #2e7d32; }
+        .aerial { background: #8e24aa; }
+        .impulse { background: #f57c00; }
+        .kickboxing { background: #c2185b; }
+        .teenfit { background: #00796b; }
+        .corefit { background: #512da8; }
+
+        .note {
+            font-size: 13px;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .note a {
+            color: rgb(37, 208, 58);
+            transition: color 0.3s ease;
+        }
+
+        .note a:hover {
+            color: rgb(30, 176, 49);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            padding: 4rem 2rem 2rem;
+            color: white;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .footer-map {
+            width: 600px;
+            height: 400px;
+            margin: 0 auto 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(37, 208, 58, 0.3);
+            border: 3px solid rgba(37, 208, 58, 0.3);
+        }
+
+        .footer-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .footer-copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .header h1 {
+                font-size: 3rem;
+            }
+
+            .schedule-container {
+                margin: 3rem auto;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                gap: 1.5rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .header {
+                padding: 3rem 1rem;
+                margin-top: 60px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .schedule-container {
+                padding: 1rem;
+            }
+
+            th, td {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .footer-map {
+                width: 100%;
+                max-width: 500px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .footer-map {
+                height: 250px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header, .schedule-container {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .header { animation-delay: 0.2s; }
+        .schedule-container { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">VelocityX</div>
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="./index.html" class="nav-link">HOME</a></li>
+            <li class="nav-item"><a href="./aboutus.html" class="nav-link">ABOUT</a></li>
+            <li class="nav-item"><a href="./classes.html" class="nav-link active">CLASSES</a></li>
+            <li class="nav-item"><a href="./nutrition.html" class="nav-link">NUTRITION</a></li>
+            <li class="nav-item"><a href="./trainers.html" class="nav-link">TRAINERS</a></li>
+            <li class="nav-item"><a href="./membership.html" class="nav-link">MEMBERSHIP</a></li>
+            <li class="nav-item"><a href="./contact.html" class="nav-link nav-link-highlight">CONTACT US</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Weekly Class Schedule</h1>
+            <p>Stay consistent and choose the class that fits your vibe 💪</p>
+        </div>
+    </header>
+
+    <!-- Schedule -->
+    <div class="schedule-container">
+        <table aria-label="Weekly class schedule">
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Timing</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="class-box yoga">Yoga with Farisa</span></td>
+                    <td>LADIES</td>
+                    <td>26-07-2024</td>
+                    <td>22-08-2024</td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td></td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><span class="class-box kickboxing">MMA with Asad</span></td>
+                    <td>MIX</td>
+                    <td>06-08-2024</td>
+                    <td>31-08-2024</td>
+                    <td></td>
+                    <td>7:00 pm-8:00 pm</td>
+                    <td></td>
+                    <td>7:00 pm-8:00 pm</td>
+                    <td></td>
+                    <td>7:00 pm-8:00 pm</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><span class="class-box impulse">Zumba with Rabia</span></td>
+                    <td>LADIES</td>
+                    <td>15-08-2024</td>
+                    <td>10-09-2024</td>
+                    <td>8:30 am-9:30 am</td>
+                    <td>8:30 am-9:30 am</td>
+                    <td></td>
+                    <td>8:30 am-9:30 am</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><span class="class-box yoga">Yoga with Farisa New</span></td>
+                    <td>LADIES</td>
+                    <td>26-08-2024</td>
+                    <td>20-09-2024</td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td></td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td>3:00 pm-4:00 pm</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <p>📍 VelocityX , Karachi | ☎️ 021-35166554</p>
+            <p>Visit <a href="http://www.corekarachi.pk" target="_blank">www.corekarachi.pk</a> for updates.</p>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VelocityX | Nutrition Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #0f0f0f;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --text-tertiary: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-tertiary: #fafafa;
+            --text-primary: #0a0a0a;
+            --text-secondary: rgba(0, 0, 0, 0.8);
+            --text-tertiary: rgba(0, 0, 0, 0.7);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link:hover {
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgb(37, 208, 58), rgb(30, 176, 49));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(37, 208, 58, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(37, 208, 58, 0.5);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .nutrition-section {
+            padding: 8rem 2rem 4rem;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nutrition-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(37, 208, 58, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(30, 176, 49, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .nutrition-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nutrition-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .nutrition-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .nutrition-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .calorie-calculator {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .calorie-calculator:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(37, 208, 58, 0.3);
+        }
+
+        .calculator-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: rgb(37, 208, 58);
+            box-shadow: 0 0 20px rgba(37, 208, 58, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 208, 58, 0.3);
+            margin-top: 1rem;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(37, 208, 58, 0.5);
+        }
+
+        .error-message {
+            color: rgb(37, 208, 58);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            text-align: center;
+        }
+
+        .results-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .results-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(37, 208, 58, 0.3);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .macro-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .macro-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .macro-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(37, 208, 58, 0.5);
+            box-shadow: 0 10px 20px rgba(37, 208, 58, 0.2);
+        }
+
+        .macro-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .macro-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .macro-grams {
+            font-size: 0.9rem;
+            color: rgb(37, 208, 58);
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+
+        .calorie-result {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(37, 208, 58, 0.1) 0%, rgba(30, 176, 49, 0.1) 100%);
+            border: 1px solid rgba(37, 208, 58, 0.2);
+            border-radius: 15px;
+        }
+
+        .calorie-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 30px rgba(37, 208, 58, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .calorie-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            padding: 4rem 2rem 2rem;
+            color: white;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .footer-map {
+            width: 600px;
+            height: 400px;
+            margin: 0 auto 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(37, 208, 58, 0.3);
+            border: 3px solid rgba(37, 208, 58, 0.3);
+        }
+
+        .footer-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .footer-copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nutrition-title {
+                font-size: 3rem;
+            }
+
+            .macro-info {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .calorie-calculator, .results-container {
+                padding: 2rem;
+            }
+
+            .form-input, .form-select {
+                font-size: 0.9rem;
+            }
+
+            .calculate-btn {
+                font-size: 1rem;
+            }
+
+            .chart-container {
+                max-height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 3rem;
+                gap: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nutrition-section {
+                padding: 6rem 1rem 4rem;
+            }
+
+            .nutrition-title {
+                font-size: 2.5rem;
+            }
+
+            .calorie-calculator, .results-container {
+                padding: 1.8rem;
+            }
+
+            .chart-container {
+                max-height: 300px;
+            }
+
+            .calorie-number {
+                font-size: 2.5rem;
+            }
+
+            .footer-map {
+                width: 100%;
+                max-width: 500px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nutrition-title {
+                font-size: 2rem;
+            }
+
+            .calorie-calculator, .results-container {
+                padding: 1.5rem;
+            }
+
+            .chart-container {
+                max-height: 250px;
+            }
+
+            .calorie-number {
+                font-size: 2rem;
+            }
+
+            .footer-map {
+                height: 250px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calorie-calculator, .results-container {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .calorie-calculator { animation-delay: 0.2s; }
+        .results-container { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">VelocityX</div>
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="./index.html" class="nav-link">HOME</a></li>
+            <li class="nav-item"><a href="./aboutus.html" class="nav-link">ABOUT</a></li>
+            <li class="nav-item"><a href="./classes.html" class="nav-link">CLASSES</a></li>
+            <li class="nav-item"><a href="./nutrition.html" class="nav-link active">NUTRITION</a></li>
+            <li class="nav-item"><a href="./trainers.html" class="nav-link">TRAINERS</a></li>
+            <li class="nav-item"><a href="./membership.html" class="nav-link">MEMBERSHIP</a></li>
+            <li class="nav-item"><a href="./contact.html" class="nav-link nav-link-highlight">CONTACT US</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Nutrition Section -->
+    <section class="nutrition-section">
+        <div class="nutrition-container">
+            <div class="nutrition-header">
+                <h1 class="nutrition-title">NUTRITION CALCULATOR</h1>
+                <p class="nutrition-subtitle">FUEL YOUR FITNESS JOURNEY</p>
+            </div>
+            
+            <div class="calculator-container">
+                <!-- Calorie Calculator -->
+                <div class="calorie-calculator">
+                    <h2 class="calculator-title">Calorie Calculator</h2>
+                    
+                    <div class="form-group">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" id="age" class="form-input" placeholder="Enter your age" min="10" max="120" aria-label="Enter your age in years">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select id="gender" class="form-select" aria-label="Select your gender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height" class="form-label">Height (cm)</label>
+                        <input type="number" id="height" class="form-input" placeholder="Enter height in cm" min="100" max="250" aria-label="Enter your height in centimeters">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight" class="form-label">Weight (kg)</label>
+                        <input type="number" id="weight" class="form-input" placeholder="Enter weight in kg" min="30" max="300" aria-label="Enter your weight in kilograms">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity" class="form-label">Activity Level</label>
+                        <select id="activity" class="form-select" aria-label="Select your activity level">
+                            <option value="">Select Activity Level</option>
+                            <option value="sedentary">Sedentary (little/no exercise)</option>
+                            <option value="lightly">Lightly active (light exercise 1-3 days/week)</option>
+                            <option value="moderately">Moderately active (moderate exercise 3-5 days/week)</option>
+                            <option value="very">Very active (hard exercise 6-7 days/week)</option>
+                            <option value="extra">Extra active (very hard exercise, physical job)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goal" class="form-label">Fitness Goal</label>
+                        <select id="goal" class="form-select" aria-label="Select your fitness goal">
+                            <option value="">Select Your Goal</option>
+                            <option value="lose">Weight Loss</option>
+                            <option value="maintain">Maintain Weight</option>
+                            <option value="gain">Weight Gain</option>
+                        </select>
+                    </div>
+
+                    <div id="errorMessage" class="error-message">Please fill in all fields with valid values.</div>
+                    <button class="calculate-btn" onclick="calculateCalories()" aria-label="Calculate your daily calorie and macronutrient needs">Calculate Nutrition</button>
+                </div>
+
+                <!-- Results Container -->
+                <div class="results-container">
+                    <h2 class="calculator-title">Your Nutrition Plan</h2>
+                    
+                    <div id="calorieResult" class="calorie-result" style="display: none;">
+                        <div class="calorie-number" id="calorieNumber">0</div>
+                        <div class="calorie-label">Daily Calories</div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="macroChart" aria-label="Macronutrient distribution chart"></canvas>
+                    </div>
+
+                    <div class="macro-info" id="macroInfo" style="display: none;">
+                        <div class="macro-card">
+                            <div class="macro-label">Protein</div>
+                            <div class="macro-value" id="proteinPercent">0%</div>
+                            <div class="macro-grams" id="proteinGrams">0g</div>
+                        </div>
+                        <div class="macro-card">
+                            <div class="macro-label">Carbs</div>
+                            <div class="macro-value" id="carbsPercent">0%</div>
+                            <div class="macro-grams" id="carbsGrams">0g</div>
+                        </div>
+                        <div class="macro-card">
+                            <div class="macro-label">Fats</div>
+                            <div class="macro-value" id="fatsPercent">0%</div>
+                            <div class="macro-grams" id="fatsGrams">0g</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let macroChart;
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Initialize chart
+        function initChart() {
+            const ctx = document.getElementById('macroChart').getContext('2d');
+            macroChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Protein', 'Carbohydrates', 'Fats'],
+                    datasets: [{
+                        data: [30, 40, 30],
+                        backgroundColor: [
+                            'rgba(37, 208, 58, 0.8)',
+                            'rgba(30, 176, 49, 0.8)',
+                            'rgba(255, 179, 102, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(37, 208, 58)',
+                            'rgb(30, 176, 49)',
+                            'rgb(255, 179, 102)'
+                        ],
+                        borderWidth: 3,
+                        hoverOffset: 15,
+                        hoverBorderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.9)',
+                                font: {
+                                    family: 'Inter',
+                                    size: 14,
+                                    weight: 600
+                                },
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                            titleFont: { family: 'Inter', size: 16, weight: 700 },
+                            bodyFont: { family: 'Inter', size: 14 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed + '%';
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeOutCubic'
+                    }
+                }
+            });
+        }
+
+        // Calculate calories and macros
+        function calculateCalories() {
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const height = parseInt(document.getElementById('height').value);
+            const weight = parseInt(document.getElementById('weight').value);
+            const activity = document.getElementById('activity').value;
+            const goal = document.getElementById('goal').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Validation
+            if (!age || !gender || !height || !weight || !activity || !goal) {
+                errorMessage.textContent = 'Please fill in all fields.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (age < 10 || age > 120 || height < 100 || height > 250 || weight < 30 || weight > 300) {
+                errorMessage.textContent = 'Please enter valid values: Age (10-120), Height (100-250 cm), Weight (30-300 kg).';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            errorMessage.style.display = 'none';
+
+            // Calculate BMR (Mifflin-St Jeor Equation)
+            let bmr;
+            if (gender === 'male') {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+
+            // Activity multipliers
+            const activityMultipliers = {
+                sedentary: 1.2,
+                lightly: 1.375,
+                moderately: 1.55,
+                very: 1.725,
+                extra: 1.9
+            };
+
+            // Calculate TDEE
+            let tdee = bmr * activityMultipliers[activity];
+
+            // Adjust for goals
+            const goalAdjustments = {
+                lose: -500,
+                maintain: 0,
+                gain: 500
+            };
+
+            const targetCalories = Math.round(tdee + goalAdjustments[goal]);
+
+            // Macro percentages based on goal
+            let macroRatios;
+            if (goal === 'lose') {
+                macroRatios = { protein: 40, carbs: 30, fats: 30 };
+            } else if (goal === 'gain') {
+                macroRatios = { protein: 25, carbs: 45, fats: 30 };
+            } else {
+                macroRatios = { protein: 30, carbs: 40, fats: 30 };
+            }
+
+            // Calculate macro grams
+            const proteinGrams = Math.round((targetCalories * macroRatios.protein / 100) / 4);
+            const carbsGrams = Math.round((targetCalories * macroRatios.carbs / 100) / 4);
+            const fatsGrams = Math.round((targetCalories * macroRatios.fats / 100) / 9);
+
+            // Update UI
+            document.getElementById('calorieNumber').textContent = targetCalories.toLocaleString();
+            document.getElementById('calorieResult').style.display = 'block';
+            
+            document.getElementById('proteinPercent').textContent = `${macroRatios.protein}%`;
+            document.getElementById('proteinGrams').textContent = `${proteinGrams}g`;
+            
+            document.getElementById('carbsPercent').textContent = `${macroRatios.carbs}%`;
+            document.getElementById('carbsGrams').textContent = `${carbsGrams}g`;
+            
+            document.getElementById('fatsPercent').textContent = `${macroRatios.fats}%`;
+            document.getElementById('fatsGrams').textContent = `${fatsGrams}g`;
+            
+            document.getElementById('macroInfo').style.display = 'grid';
+
+            // Update chart
+            macroChart.data.datasets[0].data = [macroRatios.protein, macroRatios.carbs, macroRatios.fats];
+            macroChart.update();
+        }
+
+        // Initialize chart on page load
+        window.addEventListener('load', () => {
+            if (typeof Chart !== 'undefined') {
+                initChart();
+            } else {
+                setTimeout(() => {
+                    initChart();
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

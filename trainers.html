@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VelocityX - Our Expert Trainers</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #0f0f0f;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --text-tertiary: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-tertiary: #fafafa;
+            --text-primary: #0a0a0a;
+            --text-secondary: rgba(0, 0, 0, 0.8);
+            --text-tertiary: rgba(0, 0, 0, 0.7);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 208, 58, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 208, 58, 0.6);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link:hover {
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: rgb(37, 208, 58);
+            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgb(37, 208, 58), rgb(30, 176, 49));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(37, 208, 58, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(37, 208, 58, 0.5);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .trainers-section {
+            padding: 8rem 2rem 4rem;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trainers-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(37, 208, 58, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(30, 176, 49, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .trainers-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .trainers-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .trainers-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .trainers-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Center the last 2 cards by placing them in specific columns with offset */
+        .trainer-card:nth-child(13) {
+            grid-column: 2 / 3;
+        }
+
+        .trainer-card:nth-child(14) {
+            grid-column: 3 / 4;
+        }
+
+        .trainer-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(37, 208, 58, 0.5);
+            box-shadow: 0 25px 50px rgba(37, 208, 58, 0.2),
+                        0 0 40px rgba(37, 208, 58, 0.1);
+        }
+
+        .trainer-image {
+            width: 100%;
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trainer-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+
+        .trainer-info {
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .trainer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .trainer-specialty {
+            font-size: 0.9rem;
+            color: rgb(37, 208, 58);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .trainer-experience {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .trainer-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .trainer-years {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .trainer-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .star svg {
+            width: 100%;
+            height: 100%;
+            fill: rgba(255, 255, 255, 0.2);
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 1;
+            transition: all 0.2s ease;
+        }
+
+        .star.filled svg {
+            fill: rgb(37, 208, 58);
+            stroke: rgb(37, 208, 58);
+            filter: drop-shadow(0 0 4px rgba(37, 208, 58, 0.5));
+        }
+
+        .star:hover svg {
+            fill: rgb(30, 176, 49);
+            stroke: rgb(30, 176, 49);
+            transform: scale(1.1);
+        }
+
+        .rating-number {
+            font-size: 0.8rem;
+            color: rgb(37, 208, 58);
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .trainer-contact {
+            background: rgba(37, 208, 58, 0.1);
+            border: 1px solid rgba(37, 208, 58, 0.2);
+            border-radius: 10px;
+            padding: 0.8rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .trainer-contact:hover {
+            background: rgba(37, 208, 58, 0.2);
+            border-color: rgba(37, 208, 58, 0.4);
+        }
+
+        .contact-btn {
+            color: rgb(37, 208, 58);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            color: rgb(30, 176, 49);
+            text-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+        }
+
+        .back-to-home {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 208, 58, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 12px 35px rgba(37, 208, 58, 0.5);
+        }
+
+        /* Individual trainer images - using placeholder images for demo */
+        .trainer-card:nth-child(1) .trainer-image { background-image: url(./images/MADIHA\ FATIMA.jpg); }
+        .trainer-card:nth-child(2) .trainer-image { background-image: url(./images/DUANE\ CASTELLINO.jpg); }
+        .trainer-card:nth-child(3) .trainer-image { background-image: url(./images/MAHNOOR.jpg); }
+        .trainer-card:nth-child(4) .trainer-image { background-image: url(./images/MEHREEN\ FAWAD.jpg); }
+        .trainer-card:nth-child(5) .trainer-image { background-image: url(./images/MUAMMAD\ SAAD.jpg); }
+        .trainer-card:nth-child(6) .trainer-image { background-image: url(./images/MUHAMMAD\ MUAVIA.jpg); }
+        .trainer-card:nth-child(7) .trainer-image { background-image: url(./images/MUHAMMAD\ RAMBEEL\ TANVEER.jpg); }
+        .trainer-card:nth-child(8) .trainer-image { background-image: url(./images/MUHAMMAD\ WASIF.jpg); }
+        .trainer-card:nth-child(9) .trainer-image { background-image: url(./images/SUMMAIYA\ MALIK.jpg); }
+        .trainer-card:nth-child(10) .trainer-image { background-image: url(./images/RAB\ NAWAZ.jpg); }
+        .trainer-card:nth-child(11) .trainer-image { background-image: url(./images/SHOAIB.jpg); }
+        .trainer-card:nth-child(12) .trainer-image { background-image: url(./images/SYED\ MUHAMMAD\ SHAHIQ.jpg); }
+        .trainer-card:nth-child(13) .trainer-image { background-image: url(./images/SYEDA\ MEHAK\ KHALIL.jpg); }
+        .trainer-card:nth-child(14) .trainer-image { background-image: url(./images/ZARA\ SATTAR.jpg); }
+
+
+        @media (max-width: 1200px) {
+            .trainers-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.8rem;
+            }
+
+            .trainers-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .trainers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .trainers-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 3rem;
+                gap: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .trainers-section {
+                padding: 6rem 1rem 4rem;
+            }
+
+            .trainers-title {
+                font-size: 2.5rem;
+            }
+
+            .trainers-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .trainer-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trainers-title {
+                font-size: 2rem;
+            }
+
+            .trainer-info {
+                padding: 1.2rem;
+            }
+
+            .trainer-image {
+                height: 250px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .trainer-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .trainer-card:nth-child(1) { animation-delay: 0.1s; }
+        .trainer-card:nth-child(2) { animation-delay: 0.2s; }
+        .trainer-card:nth-child(3) { animation-delay: 0.3s; }
+        .trainer-card:nth-child(4) { animation-delay: 0.4s; }
+        .trainer-card:nth-child(5) { animation-delay: 0.5s; }
+        .trainer-card:nth-child(6) { animation-delay: 0.6s; }
+        .trainer-card:nth-child(7) { animation-delay: 0.7s; }
+        .trainer-card:nth-child(8) { animation-delay: 0.8s; }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">VelocityX</div>
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="./index.html" class="nav-link">HOME</a></li>
+            <li class="nav-item"><a href="./aboutus.html" class="nav-link">ABOUT</a></li>
+            <li class="nav-item"><a href="./classes.html" class="nav-link">CLASSES</a></li>
+            <li class="nav-item"><a href="./nutrition.html" class="nav-link">NUTRITION</a></li>
+            <li class="nav-item"><a href="./trainers.html" class="nav-link active">TRAINERS</a></li>
+            <li class="nav-item"><a href="./membership.html" class="nav-link">MEMBERSHIP</a></li>
+            <li class="nav-item"><a href="./contact.html" class="nav-link nav-link-highlight">CONTACT US</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Trainers Section -->
+    <section class="trainers-section">
+        <div class="trainers-container">
+            <div class="trainers-header">
+                <h1 class="trainers-title">OUR EXPERT TRAINERS</h1>
+                <p class="trainers-subtitle">MEET THE PROFESSIONALS WHO WILL TRANSFORM YOUR FITNESS JOURNEY</p>
+            </div>
+            
+            <div class="trainers-grid">
+                <!-- Trainer 1 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MADIHA FATIMA</h3>
+                        <p class="trainer-specialty">HIIT & Cardio Specialist</p>
+                        <p class="trainer-experience">Former Olympic athlete with expertise in high-intensity interval training and cardiovascular conditioning.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">8+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="5">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">5.0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 2 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">DUANE CASTELLINO</h3>
+                        <p class="trainer-specialty">Strength & Powerlifting</p>
+                        <p class="trainer-experience">Certified powerlifting coach specializing in strength development and competitive lifting techniques.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">12+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.8">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 3 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MAHNOOR</h3>
+                        <p class="trainer-specialty">Yoga & Flexibility</p>
+                        <p class="trainer-experience">Certified yoga instructor with focus on flexibility, mindfulness, and body alignment techniques.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">6+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.9">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 4 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MEHREEN FAWAD</h3>
+                        <p class="trainer-specialty">CrossFit & Functional</p>
+                        <p class="trainer-experience">Level 3 CrossFit trainer focused on functional movements and competitive CrossFit preparation.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">10+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.7">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 5 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MUAMMAD SAAD</h3>
+                        <p class="trainer-specialty">Women's Fitness & Pilates</p>
+                        <p class="trainer-experience">Specialized in women's fitness programs, prenatal/postnatal training, and Pilates instruction.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">7+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.9">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 6 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MUHAMMAD MUAVIA</h3>
+                        <p class="trainer-specialty">Endurance & Marathon</p>
+                        <p class="trainer-experience">Experienced marathon coach specializing in endurance training and race preparation.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">9+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.8">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 7 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MUHAMMAD RAMBEEL TANVEER</h3>
+                        <p class="trainer-specialty">Spin & Cycling</p>
+                        <p class="trainer-experience">Certified cycling instructor with expertise in spin classes and performance cycling.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">5+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.9">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 8 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">MUHAMMAD WASIF</h3>
+                        <p class="trainer-specialty">Martial Arts & Self-Defense</p>
+                        <p class="trainer-experience">Black belt in multiple disciplines, specializing in martial arts and self-defense training.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">11+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.7">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 9 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">SUMMAIYA MALIK</h3>
+                        <p class="trainer-specialty">Specialty Area</p>
+                        <p class="trainer-experience">Add trainer description here - expertise, certifications, and training approach.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">X+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.8">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 10 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">RAB NAWAZ</h3>
+                        <p class="trainer-specialty">Specialty Area</p>
+                        <p class="trainer-experience">Add trainer description here - expertise, certifications, and training approach.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">X+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.9">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 11 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">SHOAIB</h3>
+                        <p class="trainer-specialty">Specialty Area</p>
+                        <p class="trainer-experience">Add trainer description here - expertise, certifications, and training approach.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">X+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="5">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">5.0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 12 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">SYED MUHAMMAD SHAHIQ</h3>
+                        <p class="trainer-specialty">Specialty Area</p>
+                        <p class="trainer-experience">Add trainer description here - expertise, certifications, and training approach.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">X+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.8">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 13 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">SYEDA MEHAK KHALIL</h3>
+                        <p class="trainer-specialty">Specialty Area</p>
+                        <p class="trainer-experience">Add trainer description here - expertise, certifications, and training approach.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">X+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.7">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 14 -->
+                <div class="trainer-card">
+                    <div class="trainer-image"></div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">ZARA SATTAR</h3>
+                        <p class="trainer-specialty">Specialty Area</p>
+                        <p class="trainer-experience">Add trainer description here - expertise, certifications, and training approach.</p>
+                        
+                        <div class="trainer-stats">
+                            <span class="trainer-years">X+ Years Experience</span>
+                            <div class="trainer-rating">
+                                <div class="star-rating" data-rating="4.9">
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                    <span class="star filled">
+                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </span>
+                                </div>
+                                <span class="rating-number">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="trainer-contact">
+                            <a href="#" class="contact-btn">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <a href="#home" class="back-to-home">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="white" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to 'dark'
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        
+        // Update icon based on current theme
+        if (currentTheme === 'light') {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Toggle icons
+            if (newTheme === 'light') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
