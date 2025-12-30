@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VelocityX | Charge Card</title>
+  <title>Core | Membership</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
   <style>
     /* GENERAL */
     * {
@@ -83,8 +84,8 @@
 
     .nav-link:hover,
     .nav-link.active {
-      color: rgb(37, 208, 58);
-      text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+      color: #fb5b21;
+      text-shadow: 0 0 20px rgba(251, 91, 33, 0.6);
       transform: translateY(-2px);
     }
 
@@ -95,9 +96,9 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, rgb(37, 208, 58), rgb(30, 176, 49));
+      background: linear-gradient(90deg, #fb5b21, #c84619);
       transition: width 0.3s ease;
-      box-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+      box-shadow: 0 0 10px rgba(251, 91, 33, 0.5);
     }
 
     .nav-link:hover::after,
@@ -106,7 +107,7 @@
     }
 
     .nav-cta {
-      background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+      background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
       color: white;
       padding: 0.8rem 1.5rem;
       border-radius: 30px;
@@ -114,13 +115,13 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(37, 208, 58, 0.3);
+      box-shadow: 0 4px 20px rgba(251, 91, 33, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .nav-cta:hover {
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 30px rgba(37, 208, 58, 0.5);
+      box-shadow: 0 8px 30px rgba(251, 91, 33, 0.5);
       text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
     }
 
@@ -153,7 +154,7 @@
 
     /* HEADER */
     header {
-      background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+      background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
       color: #fff;
       text-align: center;
       padding: 120px 20px 50px;
@@ -189,7 +190,7 @@
       padding: 30px 40px;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 40px rgba(37, 208, 58, 0.2);
+      box-shadow: 0 20px 40px rgba(251, 91, 33, 0.2);
     }
 
     section {
@@ -198,7 +199,7 @@
 
     .section-header {
       margin-bottom: 2rem;
-      border-left: 6px solid rgb(37, 208, 58);
+      border-left: 6px solid #fb5b21;
       padding-left: 12px;
     }
 
@@ -208,7 +209,7 @@
       color: white;
       text-transform: uppercase;
       letter-spacing: 1px;
-      background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+      background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -234,7 +235,7 @@
     }
 
     th {
-      background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+      background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
       color: #fff;
       font-weight: 600;
       text-transform: uppercase;
@@ -255,7 +256,7 @@
     .note {
       background: rgba(255, 255, 255, 0.05);
       padding: 20px;
-      border-left: 6px solid rgb(37, 208, 58);
+      border-left: 6px solid #fb5b21;
       border-radius: 10px;
       font-size: 14px;
       line-height: 1.6;
@@ -269,14 +270,14 @@
     }
 
     .note a {
-      color: rgb(37, 208, 58);
+      color: #fb5b21;
       font-weight: 600;
       transition: color 0.3s ease;
     }
 
     .note a:hover {
-      color: rgb(30, 176, 49);
-      text-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+      color: #c84619;
+      text-shadow: 0 0 10px rgba(251, 91, 33, 0.5);
     }
 
     /* FOOTER */
@@ -291,7 +292,7 @@
       font-size: 2.5rem;
       font-weight: 900;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+      background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -390,10 +391,10 @@
 <body>
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
-    <div class="nav-logo">VelocityX</div>
+    <div class="nav-logo">CORE</div>
         <ul class="nav-menu" id="navMenu">
       <li class="nav-item"><a href="./index.html" class="nav-link">HOME</a></li>
-      <li class="nav-item"><a href="./aboutus.html" class="nav-link">ABOUT</a></li>
+      <li class="nav-item"><a href="./about.html" class="nav-link">ABOUT</a></li>
       <li class="nav-item"><a href="./classes.html" class="nav-link">CLASSES</a></li>
       <li class="nav-item"><a href="./nutrition.html" class="nav-link">NUTRITION</a></li>
       <li class="nav-item"><a href="./trainers.html" class="nav-link">TRAINERS</a></li>
@@ -409,7 +410,7 @@
 
   <!-- HEADER -->
   <header>
-    <h1>VelocityX Charge Card</h1>
+    <h1>Core Membership</h1>
     <p>All prices in PKR and include Sindh Sales Tax on Service.</p>
   </header>
 
@@ -417,74 +418,151 @@
   <div class="container">
     <section>
       <div class="section-header">
-        <h2 class="section-title">Gym Membership Subscriptions</h2>
+        <h2 class="section-title">Annual Membership Fee (Jan to Dec, 2025)</h2>
       </div>
+      <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">Applicable on all packages. Prorated upon membership activation month.</p>
       <table>
         <tr>
-          <th scope="col">Duration</th>
-          <th scope="col">Details</th>
-          <th scope="col">Single Person</th>
-          <th scope="col">2 Persons</th>
+          <th scope="col">Description</th>
+          <th scope="col">Fee (With Tax)</th>
         </tr>
         <tr>
-          <td><strong>1 Month</strong></td>
-          <td>Floor Trainer<br>Basic Workout Plan</td>
-          <td>16,000 PKR</td>
-          <td>30,000 PKR</td>
-        </tr>
-        <tr>
-          <td><strong>3 Months</strong></td>
-          <td>Floor Trainer<br>Basic Workout Plan</td>
-          <td>42,000 PKR</td>
-          <td>78,000 PKR</td>
-        </tr>
-        <tr>
-          <td><strong>6 Months</strong></td>
-          <td>Floor Trainer<br>Basic Workout Plan</td>
-          <td>66,000 PKR</td>
-          <td>120,000 PKR</td>
-        </tr>
-        <tr>
-          <td><strong>Yearly</strong></td>
-          <td>Floor Trainer<br>Basic Workout Plan</td>
-          <td>120,000 PKR</td>
-          <td>228,000 PKR</td>
+          <td><strong>Annual Membership Fee</strong></td>
+          <td>18,000 PKR</td>
         </tr>
       </table>
 
       <div class="section-header">
-        <h2 class="section-title">Specialized Training Programs</h2>
+        <h2 class="section-title">Gym Access</h2>
       </div>
       <table>
         <tr>
-          <th scope="col">Program</th>
-          <th scope="col">Trainer</th>
-          <th scope="col">Details</th>
-          <th scope="col">Price (PKR)</th>
+          <th scope="col">Package</th>
+          <th scope="col">Description</th>
+          <th scope="col">Fee (PKR)</th>
         </tr>
         <tr>
-          <td><strong>27 Hard K (6 Days)</strong></td>
-          <td>Kanza Khan</td>
-          <td>MIX (24 sessions)<br>Start 20 Oct 2025 - End 15 Nov 2025</td>
-          <td>42,000</td>
+          <td><strong>Off-peak Access</strong></td>
+          <td>7 am to 4 pm on weekdays (must exit by 4 pm). All hours on weekends.</td>
+          <td>21,000</td>
         </tr>
         <tr>
-          <td><strong>27 Hard K (4 Days)</strong></td>
-          <td>Kanza Khan</td>
-          <td>MIX (16 sessions)<br>Start 20 Oct 2025 - End 15 Nov 2025</td>
-          <td>16,000</td>
+          <td><strong>All-Hour Access</strong></td>
+          <td>Complete and unrestricted use of the gym.</td>
+          <td>26,000</td>
         </tr>
         <tr>
-          <td><strong>The Power Hour</strong></td>
-          <td>Madiha Fatima - Studio</td>
-          <td>LADIES (12 sessions)<br>Start 3 Nov 2025 - End 27 Nov 2025</td>
-          <td>14,000</td>
+          <td><strong>2 Family Members</strong></td>
+          <td>All-Hour Access</td>
+          <td>40,000</td>
         </tr>
         <tr>
-          <td><strong>Yoga with Farisa</strong></td>
-          <td>Farisa</td>
-          <td>LADIES (12 sessions)<br>Start 27 Oct 2025 - End 21 Nov 2025</td>
-          <td>10,000</td>
+          <td><strong>3 Family Members</strong></td>
+          <td>All-Hour Access</td>
+          <td>57,000</td>
+        </tr>
+        <tr>
+          <td><strong>Student Package</strong></td>
+          <td>7 am to 6 pm on weekdays (must exit by 6 pm). All hours on weekends.</td>
+          <td>15,000</td>
+        </tr>
+      </table>
+
+      <div class="section-header">
+        <h2 class="section-title">Personal Training Charges</h2>
+      </div>
+      <table>
+        <tr>
+          <th scope="col">Frequency</th>
+          <th scope="col">1 Person</th>
+          <th scope="col">2 Persons</th>
+          <th scope="col">3 Persons</th>
+        </tr>
+        <tr>
+          <td><strong>3 Days a week</strong></td>
+          <td>55,500</td>
+          <td>89,750</td>
+          <td>124,000</td>
+        </tr>
+        <tr>
+          <td><strong>4 Days a week</strong></td>
+          <td>67,800</td>
+          <td>108,200</td>
+          <td>148,600</td>
+        </tr>
+        <tr>
+          <td><strong>5 Days a week</strong></td>
+          <td>82,600</td>
+          <td>129,900</td>
+          <td>177,200</td>
+        </tr>
+        <tr>
+          <td><strong>6 Days a week</strong></td>
+          <td>93,200</td>
+          <td>145,800</td>
+          <td>198,400</td>
+        </tr>
+        <tr>
+          <td><strong>1 Session (1 hour)</strong></td>
+          <td>5,500</td>
+          <td>9,000</td>
+          <td>12,500</td>
+        </tr>
+      </table>
+
+      <div class="section-header">
+        <h2 class="section-title">Group Class Packages</h2>
+      </div>
+      <table>
+        <tr>
+          <th scope="col">Package</th>
+          <th scope="col">Fee (PKR)</th>
+        </tr>
+        <tr>
+          <td><strong>8 Group Classes</strong></td>
+          <td>15,000</td>
+        </tr>
+        <tr>
+          <td><strong>12 Group Classes</strong></td>
+          <td>18,000</td>
+        </tr>
+        <tr>
+          <td><strong>16 Group Classes</strong></td>
+          <td>20,000</td>
+        </tr>
+        <tr>
+          <td><strong>20 Group Classes</strong></td>
+          <td>22,000</td>
+        </tr>
+      </table>
+
+      <div class="section-header">
+        <h2 class="section-title">Guest Packages</h2>
+      </div>
+      <table>
+        <tr>
+          <th scope="col">Duration</th>
+          <th scope="col">Fee (PKR)</th>
+        </tr>
+        <tr>
+          <td><strong>1 Day Access</strong></td>
+          <td>2,500</td>
+        </tr>
+        <tr>
+          <td><strong>1 Week Access</strong></td>
+          <td>12,500</td>
+        </tr>
+        <tr>
+          <td><strong>1 Month Access</strong></td>
+          <td>30,000</td>
+        </tr>
+        <tr>
+          <td><strong>6 Months</strong> <em style="color: rgba(255,255,255,0.6);">(Nontransferable & Nonrefundable)</em></td>
+          <td>126,000</td>
+        </tr>
+        <tr>
+          <td><strong>1 Year</strong> <em style="color: rgba(255,255,255,0.6);">(Nontransferable & Nonrefundable)</em></td>
+          <td>228,000</td>
         </tr>
       </table>
 
@@ -492,8 +570,9 @@
         <strong>Note:</strong>
         <ul>
           <li>All payments must be made in advance.</li>
-          <li>All prices are in PKR and include applicable taxes.</li>
-          <li>For more information, please contact us at 021-35166554.</li>
+          <li>Unused personal training sessions do not roll over to the next month.</li>
+          <li>All payments are due by the 5th of each month. Late payments will incur a fee of Rs. 500 / day.</li>
+          <li>For updated operating hours, please visit <a href="https://www.corekarachi.pk" target="_blank">www.corekarachi.pk</a></li>
         </ul>
       </div>
     </section>

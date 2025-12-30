@@ -1,4 +1,4 @@
-// Optimized JavaScript for VelocityX Website
+// Optimized JavaScript for Core Website
 (function() {
     'use strict';
     

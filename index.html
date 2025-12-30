@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="VelocityX - Premium fitness center in Karachi. Transform your body with expert trainers, modern facilities, and personalized programs.">
+    <meta name="description" content="Core - Premium fitness center in Karachi. Transform your body with expert trainers, modern facilities, and personalized programs.">
     <meta name="theme-color" content="#000000">
-    <title>VelocityX - It's not just fitness. It's living fully</title>
+    <title>Core - It's not just fitness. It's living fully</title>  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
     <style>
         :root {
             --bg-primary: #0a0a0a;
@@ -104,8 +105,8 @@
         }
 
         .nav-link:hover {
-            color: rgb(37, 208, 58);
-            text-shadow: 0 0 20px rgba(37, 208, 58, 0.6);
+            color: #fb5b21;
+            text-shadow: 0 0 20px rgba(251, 91, 33, 0.6);
             transform: translateY(-2px);
         }
 
@@ -116,9 +117,9 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, rgb(37, 208, 58), rgb(30, 176, 49));
+            background: linear-gradient(90deg, #fb5b21, #c84619);
             transition: width 0.3s ease;
-            box-shadow: 0 0 10px rgba(37, 208, 58, 0.5);
+            box-shadow: 0 0 10px rgba(251, 91, 33, 0.5);
         }
 
         .nav-link:hover::after {
@@ -126,7 +127,7 @@
         }
 
         .nav-cta {
-            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
             color: white;
             padding: 0.8rem 1.5rem;
             border-radius: 30px;
@@ -134,13 +135,13 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(37, 208, 58, 0.3);
+            box-shadow: 0 4px 20px rgba(251, 91, 33, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-cta:hover {
             transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(37, 208, 58, 0.5);
+            box-shadow: 0 8px 30px rgba(251, 91, 33, 0.5);
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
@@ -233,34 +234,6 @@
             animation: fadeInUp 1s ease-out 0.5s forwards;
         }
 
-        .train-text-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-            opacity: 0.08;
-            pointer-events: none;
-        }
-
-        .train-text {
-            position: absolute;
-            font-size: 8vw;
-            font-weight: 900;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: -4px;
-            white-space: nowrap;
-            animation: scrollText 25s linear infinite;
-        }
-
-        .train-text:nth-child(1) { top: 15%; animation-delay: 0s; }
-        .train-text:nth-child(2) { top: 35%; animation-delay: -6.25s; }
-        .train-text:nth-child(3) { top: 55%; animation-delay: -12.5s; }
-        .train-text:nth-child(4) { top: 75%; animation-delay: -18.75s; }
-
         .cta-section {
             margin-top: 3rem;
             opacity: 0;
@@ -268,7 +241,7 @@
         }
 
         .cta-badge {
-            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
             color: white;
             padding: 0.8rem 2rem;
             border-radius: 50px;
@@ -278,7 +251,7 @@
             letter-spacing: 1px;
             margin-bottom: 1.5rem;
             display: inline-block;
-            box-shadow: 0 8px 32px rgba(37, 208, 58, 0.4);
+            box-shadow: 0 8px 32px rgba(251, 91, 33, 0.4);
             animation: pulse 2s infinite;
         }
 
@@ -333,8 +306,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(37, 208, 58, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(30, 176, 49, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(251, 91, 33, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(200, 70, 25, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -388,9 +361,9 @@
 
         .facility-card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: rgba(37, 208, 58, 0.5);
-            box-shadow: 0 20px 40px rgba(37, 208, 58, 0.2),
-                        0 0 30px rgba(37, 208, 58, 0.1);
+            border-color: rgba(251, 91, 33, 0.5);
+            box-shadow: 0 20px 40px rgba(251, 91, 33, 0.2),
+                        0 0 30px rgba(251, 91, 33, 0.1);
         }
 
         .facility-icon {
@@ -399,7 +372,7 @@
             left: 2rem;
             width: 48px;
             height: 48px;
-            color: rgb(37, 208, 58);
+            color: #fb5b21;
             transition: all 0.3s ease;
         }
 
@@ -411,12 +384,12 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            filter: drop-shadow(0 0 10px rgba(37, 208, 58, 0.3));
+            filter: drop-shadow(0 0 10px rgba(251, 91, 33, 0.3));
         }
 
         .facility-card:hover .facility-icon {
             transform: scale(1.1) rotate(5deg);
-            color: rgb(30, 176, 49);
+            color: #c84619;
         }
 
         .facility-content {
@@ -439,8 +412,8 @@
         }
 
         .facility-card:hover .facility-name {
-            color: rgb(37, 208, 58);
-            text-shadow: 0 0 15px rgba(37, 208, 58, 0.6);
+            color: #fb5b21;
+            text-shadow: 0 0 15px rgba(251, 91, 33, 0.6);
         }
 
         .facility-description {
@@ -542,13 +515,13 @@
             width: 100%;
             height: auto;
             border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(37, 208, 58, 0.3);
+            box-shadow: 0 15px 30px rgba(251, 91, 33, 0.3);
             transition: all 0.3s ease;
         }
 
         .promotion-card:hover .debit-card {
             transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(37, 208, 58, 0.4);
+            box-shadow: 0 20px 40px rgba(251, 91, 33, 0.4);
         }
 
         .card-content {
@@ -559,12 +532,12 @@
         .discount-text {
             font-size: 4rem;
             font-weight: 900;
-            color: rgb(37, 208, 58);
+            color: #fb5b21;
             text-transform: uppercase;
             letter-spacing: -2px;
             margin-bottom: 1rem;
-            text-shadow: 0 0 30px rgba(37, 208, 58, 0.5);
-            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            text-shadow: 0 0 30px rgba(251, 91, 33, 0.5);
+            background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -587,7 +560,7 @@
         }
 
         .promotion-cta {
-            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
             color: white;
             padding: 1rem 2rem;
             border: none;
@@ -598,12 +571,12 @@
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(37, 208, 58, 0.3);
+            box-shadow: 0 8px 25px rgba(251, 91, 33, 0.3);
         }
 
         .promotion-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(37, 208, 58, 0.5);
+            box-shadow: 0 12px 35px rgba(251, 91, 33, 0.5);
         }
 
         /* Trainers Section */
@@ -639,21 +612,21 @@
 
         .trainer-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(37, 208, 58, 0.2);
+            box-shadow: 0 25px 50px rgba(251, 91, 33, 0.2);
         }
 
         .trainer-card:nth-child(1) {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
-                              url('./images/MADIHA FATIMA.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), 
+                              url('./images/ADIBA KHAN.webp');
             background-size: cover;
-            background-position: center;
+            background-position: center top;
         }
 
         .trainer-card:nth-child(2) {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
-                              url('./images/SUMMAIYA MALIK.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), 
+                              url('./images/Arbab Ahmed.webp');
             background-size: cover;
-            background-position: center;
+            background-position: center top;
         }
 
         .trainer-info {
@@ -676,7 +649,7 @@
 
         .trainer-specialty {
             font-size: 1rem;
-            color: rgb(37, 208, 58);
+            color: #fb5b21;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -706,7 +679,7 @@
             font-size: 2.5rem;
             font-weight: 900;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, rgb(37, 208, 58) 0%, rgb(30, 176, 49) 100%);
+            background: linear-gradient(135deg, #fb5b21 0%, #c84619 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -725,8 +698,8 @@
             margin: 0 auto 2rem;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(37, 208, 58, 0.3);
-            border: 3px solid rgba(37, 208, 58, 0.3);
+            box-shadow: 0 20px 50px rgba(251, 91, 33, 0.3);
+            border: 3px solid rgba(251, 91, 33, 0.3);
         }
 
         .footer-map iframe {
@@ -893,7 +866,7 @@
         }
 
         .video-control-btn:hover {
-            background: rgba(37, 208, 58, 0.8);
+            background: rgba(251, 91, 33, 0.8);
             transform: scale(1.1);
         }
     </style>
@@ -902,10 +875,10 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
-        <div class="nav-logo">VelocityX</div>
+        <div class="nav-logo">CORE</div>
         <ul class="nav-menu" id="navMenu">
             <li class="nav-item"><a href="./index.html" class="nav-link">HOME</a></li>
-            <li class="nav-item"><a href="./aboutus.html" class="nav-link">ABOUT</a></li>
+            <li class="nav-item"><a href="./about.html" class="nav-link">ABOUT</a></li>
             <li class="nav-item"><a href="./classes.html" class="nav-link">CLASSES</a></li>
             <li class="nav-item"><a href="./nutrition.html" class="nav-link">NUTRITION</a></li>
             <li class="nav-item"><a href="./trainers.html" class="nav-link">TRAINERS</a></li>
@@ -924,24 +897,16 @@
         <!-- Cinematic Video Background -->
         <div class="hero-video">
             <video autoplay muted loop playsinline preload="metadata" id="heroVideo" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect width='1920' height='1080' fill='%23000000'/%3E%3C/svg%3E">
-                <source src="./videos/VELCOTYX VIDEO.mp4" type="video/mp4">
+                <source src="./videos/core-video.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         
         <div class="video-overlay"></div>
 
-        <!-- Train Text Overlay -->
-        <div class="train-text-overlay">
-            <div class="train-text">THE VelocityX EXPERIENCE THE VelocityX EXPERIENCE </div>
-            <div class="train-text">THE VelocityX EXPERIENCE THE VelocityX EXPERIENCE </div>
-            <div class="train-text">THE VelocityX EXPERIENCE THE VelocityX EXPERIENCE </div>
-            <div class="train-text">THE VelocityX EXPERIENCE THE VelocityX EXPERIENCE </div>
-        </div>
-
         <!-- Main Content -->
         <div class="hero-content">
-            <h1 class="brand-logo">VelocityX</h1>
+            <h1 class="brand-logo">CORE</h1>
             <h2 class="hero-tagline">It's not just fitness.<br>It's living fully.</h2>
         </div>
     </section>
@@ -1062,8 +1027,8 @@
                     <svg class="debit-card" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" aria-label="JS Bank Debit Card Illustration">
                         <defs>
                             <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:rgb(37, 208, 58)"/>
-                                <stop offset="100%" style="stop-color:rgb(30, 176, 49)"/>
+                                <stop offset="0%" style="stop-color:#fb5b21"/>
+                                <stop offset="100%" style="stop-color:#c84619"/>
                             </linearGradient>
                             <filter id="glow">
                                 <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -1083,14 +1048,14 @@
                         
                         <!-- JS Bank Logo -->
                         <rect x="30" y="30" width="60" height="40" rx="5" fill="white"/>
-                        <text x="60" y="50" text-anchor="middle" fill="rgb(37, 208, 58)" font-family="Arial, sans-serif" font-weight="bold" font-size="14">JS</text>
-                        <text x="60" y="65" text-anchor="middle" fill="rgb(37, 208, 58)" font-family="Arial, sans-serif" font-weight="bold" font-size="8">BANK</text>
+                        <text x="60" y="50" text-anchor="middle" fill="#fb5b21" font-family="Arial, sans-serif" font-weight="bold" font-size="14">JS</text>
+                        <text x="60" y="65" text-anchor="middle" fill="#fb5b21" font-family="Arial, sans-serif" font-weight="bold" font-size="8">BANK</text>
                         
                         <!-- Card Number -->
                         <text x="30" y="140" fill="white" font-family="monospace" font-size="20" font-weight="bold">****  ****  ****  1234</text>
                         
                         <!-- Cardholder Name -->
-                        <text x="30" y="180" fill="white" font-family="Arial, sans-serif" font-size="12" opacity="0.9">VelocityX MEMBER</text>
+                        <text x="30" y="180" fill="white" font-family="Arial, sans-serif" font-size="12" opacity="0.9">Core MEMBER</text>
                         
                         <!-- Valid Thru -->
                         <text x="30" y="200" fill="white" font-family="Arial, sans-serif" font-size="10" opacity="0.8">VALID THRU</text>
@@ -1104,7 +1069,7 @@
                 <div class="card-content">
                     <h3 class="discount-text">40% DISCOUNT</h3>
                     <h4 class="bank-text">XYZ BANK DEBIT CARD</h4>
-                    <p class="promotion-description">Get an exclusive 40% discount on all membership plans when you pay with your XYZ Bank debit card. This limited-time offer is perfect for new members looking to start their fitness journey with VelocityX.</p>
+                    <p class="promotion-description">Get an exclusive 40% discount on all membership plans when you pay with your XYZ Bank debit card. This limited-time offer is perfect for new members looking to start their fitness journey with CORE.</p>
                     <button class="promotion-cta">Claim Offer</button>
                 </div>
             </div>
@@ -1122,17 +1087,17 @@
             <div class="trainers-grid">
                 <div class="trainer-card">
                     <div class="trainer-info">
-                        <h3 class="trainer-name">MADIHA FATIMA</h3>
-                        <p class="trainer-specialty">Strength & Conditioning</p>
-                        <p class="trainer-description">Former Olympic weightlifter with 10+ years of experience. Specializes in powerlifting, functional movement, and building explosive strength.</p>
+                        <h3 class="trainer-name">ADIBA KHAN</h3>
+                        <p class="trainer-specialty">HIIT & Cardio Specialist</p>
+                        <p class="trainer-description">Expert in high-intensity interval training and cardiovascular conditioning with years of experience transforming lives.</p>
                     </div>
                 </div>
 
                 <div class="trainer-card">
                     <div class="trainer-info">
-                        <h3 class="trainer-name">SUMAYYA MALIK</h3>
-                        <p class="trainer-specialty">HIIT & CrossFit</p>
-                        <p class="trainer-description">Certified CrossFit Level 3 trainer and former competitive athlete. Expert in high-intensity workouts and metabolic conditioning.</p>
+                        <h3 class="trainer-name">ARBAB AHMED</h3>
+                        <p class="trainer-specialty">Strength & Conditioning</p>
+                        <p class="trainer-description">Certified strength coach specializing in powerlifting, functional movement, and building explosive strength.</p>
                     </div>
                 </div>
             </div>
@@ -1143,20 +1108,20 @@
     <section class="about-section">
         <div class="about-container">
             <div class="section-header">
-                <h2 class="about-title">VISIT VELOCITYX</h2>
+                <h2 class="about-title">VISIT CORE</h2>
                 <p class="about-subtitle">WHERE CHAMPIONS TRAIN</p>
             </div>
 
             <div class="contact-map-section">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13607.965362687308!2d74.33886469999999!3d31.5203696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33eb5df36b9f5%3A0xceb32c9a06fd5e9b!2sVelocityX%20Gym!5e0!3m2!1sen!2s!4v1699999999999!5m2!1sen!2s"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.8673!2d67.0292!3d24.8138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f90c0a5c0a1%3A0x1234567890abcdef!2sCORE!5e0!3m2!1sen!2spk!4v1703865600000!5m2!1sen!2spk&q=CORE,14th+floor,+Ocean+Tower,+Block+9,+Clifton,+Karachi"
                     width="100%" 
                     height="450" 
                     style="border:0;" 
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade"
-                    title="VelocityX Gym Location">
+                    title="Core Gym Location - Ocean Tower, Clifton, Karachi">
                 </iframe>
             </div>
         </div>
@@ -1199,6 +1164,20 @@
         // Video error handling
         const video = document.getElementById('heroVideo');
         
+        // Trim first 10 seconds - start video at 10 seconds
+        const VIDEO_START_TIME = 10;
+        
+        video.addEventListener('loadedmetadata', function() {
+            video.currentTime = VIDEO_START_TIME;
+        });
+        
+        // When video loops, skip back to 10 seconds instead of beginning
+        video.addEventListener('timeupdate', function() {
+            if (video.currentTime < VIDEO_START_TIME) {
+                video.currentTime = VIDEO_START_TIME;
+            }
+        });
+        
         video.addEventListener('error', function() {
             console.error('Error loading video: Check file path or format.');
             const errorMessage = document.createElement('p');
@@ -1211,13 +1190,9 @@
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const heroVideo = document.querySelector('.hero-video');
-            const trainText = document.querySelector('.train-text-overlay');
             
             if (heroVideo) {
                 heroVideo.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-            if (trainText) {
-                trainText.style.transform = `translateY(${scrolled * 0.3}px)`;
             }
         });
 
